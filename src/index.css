@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  .BORDER {
+  border: 2px solid red;
+  }
+
+  .myshadow{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  }
+  .secondshadow{
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  }
+  .radial{
+    background-color:   radial-gradient(circle farthest-corner at 10% 20%, #ff5ef7 17.8%, #02f5ff 100.2%);
+
+  }
+}
