@@ -1,11 +1,21 @@
 import React, { useContext, useEffect, useState } from "react"
 import Header from "../Common/Header"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { FacebookAuthProvider } from "firebase/auth"
+
 import { app } from "../FirebaseConfig"
 import { logincontext } from "../Context/MainContext"
 import { useNavigate } from "react-router"
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+} from "firebase/auth"
 
 export default function Login() {
+  const provider = new GoogleAuthProvider()
+  const auth = getAuth(app)
+
   const [loading, setloading] = useState(false)
   const { user, setuser } = useContext(logincontext)
   let navigator = useNavigate()
@@ -14,8 +24,6 @@ export default function Login() {
     e.preventDefault()
     let email = e.target.email.value
     let password = e.target.password.value
-
-    const auth = getAuth(app)
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -38,6 +46,56 @@ export default function Login() {
     }
   }, [user])
 
+  let GoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result)
+        const token = credential.accessToken
+        // The signed-in user info.
+        const user = result.user
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code
+        const errorMessage = error.message
+        // The email of the user's account used.
+        const email = error.customData.email
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error)
+        // ...
+      })
+  }
+  let Facebooklogin = () => {
+    const provider = new FacebookAuthProvider()
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result)
+        const accessToken = credential.accessToken
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code
+        const errorMessage = error.message
+        // The email of the user's account used.
+        const email = error.customData.email
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error)
+
+        // ...
+      })
+  }
+
   return (
     <>
       <Header />
@@ -53,7 +111,7 @@ export default function Login() {
                 type="email"
                 name="email"
                 id="email"
-                className="w-full px-4 py-3 rounded-md border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-full px-4 py-3 rounded-md border border-[solid] border-[black] focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
             <div className="space-y-1 text-sm">
@@ -64,7 +122,7 @@ export default function Login() {
                 type="password"
                 name="password"
                 id="password"
-                className="w-full px-4 py-3 rounded-md border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-full px-4 py-3 rounded-md border border-[solid] border-[black] focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
 
@@ -97,6 +155,22 @@ export default function Login() {
                 ""
               )}
             </button>
+            <div className="flex justify-between">
+              <button
+                type="button"
+                className="bg-[#2563eb] p-[5px] text-white"
+                onClick={Facebooklogin}
+              >
+                Facebook
+              </button>
+              <button
+                type="button"
+                className="bg-[#f43f5e] px-[5px] text-white"
+                onClick={GoogleLogin}
+              >
+                Google
+              </button>
+            </div>
           </form>
         </div>
       </div>

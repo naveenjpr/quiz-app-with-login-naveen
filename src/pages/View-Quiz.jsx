@@ -71,6 +71,12 @@ function QuestionItems({ question, index }) {
     finalcorAns = question.option4
   }
 
+  let [msg, setmsg] = useState(true)
+  let showmessage = () => {
+    setmsg(!msg)
+  }
+  console.log(msg)
+
   return (
     <>
       <div className="border-[2px] border-[solid] border-[black] mb-[3px]">
@@ -78,7 +84,6 @@ function QuestionItems({ question, index }) {
           <h1 className="capitalize font-bold">Play Programming quiz</h1>
           <span className="text-[green]">Time:00:10:00 hrs</span>
         </div>
-
         <div className="flex mb-[15px]">
           <h1 className="capitalize text-[blue] font-bold flex items-center ">
             relative of question "{question.courseCategory}"
@@ -96,7 +101,10 @@ function QuestionItems({ question, index }) {
             </span>
           </h1>
         </div>
-        <div className="flex bg-[#ccc] text-black  cursor-pointer p-[5px] rounded-[3px] mb-[10px]">
+        <div
+          onClick={showmessage}
+          className="flex bg-[#ccc] text-black  cursor-pointer p-[5px] rounded-[3px] mb-[10px]"
+        >
           <h1
             className={`cursor-pointer text-[20px] w-[100%]  text-black p-2 mb-3 ${
               question.option1 == curans
@@ -187,10 +195,14 @@ function QuestionItems({ question, index }) {
             {question.option4}
           </h1>
         </div>
-        <div className="bg-[green] text-black text-center h-auto">
-          
-         Current answer  {question.Currentanswer}
+
+        {msg == false ? (
+          <div className="bg-[green] text-black text-center h-auto">
+            Current answer {question.Currentanswer}
           </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   )
