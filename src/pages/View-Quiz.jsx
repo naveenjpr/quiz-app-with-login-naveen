@@ -126,7 +126,10 @@ function QuestionItems({ question, index }) {
             {question.option1}
           </h1>
         </div>
-        <div className="flex bg-[#ccc] text-black  cursor-pointer p-[5px] rounded-[3px] mb-[10px]">
+        <div
+          onClick={showmessage}
+          className="flex bg-[#ccc] text-black  cursor-pointer p-[5px] rounded-[3px] mb-[10px]"
+        >
           <h1
             className={`cursor-pointer text-[20px] w-[100%]  text-black p-2 mb-3 ${
               question.option2 == curans
@@ -149,7 +152,10 @@ function QuestionItems({ question, index }) {
             {question.option2}
           </h1>
         </div>
-        <div className="flex bg-[#ccc] text-black  cursor-pointer p-[5px] rounded-[3px] mb-[10px]">
+        <div
+          onClick={showmessage}
+          className="flex bg-[#ccc] text-black  cursor-pointer p-[5px] rounded-[3px] mb-[10px]"
+        >
           <h1
             className={`cursor-pointer text-[20px] w-[100%]  text-black p-2 mb-3 ${
               question.option3 == curans
@@ -172,7 +178,10 @@ function QuestionItems({ question, index }) {
             {question.option3}
           </h1>
         </div>
-        <div className="flex bg-[#ccc] cursor-pointer p-[5px] rounded-[3px] mb-[10px]">
+        <div
+          onClick={showmessage}
+          className="flex bg-[#ccc] cursor-pointer p-[5px] rounded-[3px] mb-[10px]"
+        >
           <h1
             className={`cursor-pointer text-[20px] w-[100%]  text-black p-2 mb-3 ${
               question.option4 == curans
