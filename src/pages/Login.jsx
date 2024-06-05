@@ -13,6 +13,7 @@ import {
 } from "firebase/auth"
 
 export default function Login() {
+  
   const provider = new GoogleAuthProvider()
   const auth = getAuth(app)
 
@@ -51,9 +52,13 @@ export default function Login() {
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result)
+        console.log(credential)
         const token = credential.accessToken
+        setuser(token)
         // The signed-in user info.
         const user = result.user
+        
+
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
@@ -65,33 +70,6 @@ export default function Login() {
         const email = error.customData.email
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error)
-        // ...
-      })
-  }
-  let Facebooklogin = () => {
-    const provider = new FacebookAuthProvider()
-
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // The signed-in user info.
-        const user = result.user
-
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const credential = FacebookAuthProvider.credentialFromResult(result)
-        const accessToken = credential.accessToken
-
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code
-        const errorMessage = error.message
-        // The email of the user's account used.
-        const email = error.customData.email
-        // The AuthCredential type that was used.
-        const credential = FacebookAuthProvider.credentialFromError(error)
-
         // ...
       })
   }
@@ -156,13 +134,6 @@ export default function Login() {
               )}
             </button>
             <div className="flex justify-between">
-              <button
-                type="button"
-                className="bg-[#2563eb] p-[5px] text-white"
-                onClick={Facebooklogin}
-              >
-                Facebook
-              </button>
               <button
                 type="button"
                 className="bg-[#f43f5e] px-[5px] text-white"

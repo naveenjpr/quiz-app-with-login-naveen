@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Header from "../Common/Header"
 import { getDatabase, ref, onValue } from "firebase/database"
 import { app } from "../FirebaseConfig"
 import { FaQuestion } from "react-icons/fa6"
+import { useNavigate } from "react-router"
+import { logincontext } from "../Context/MainContext"
 
 export default function ViewQuiz() {
   const [finalQuiz, setfinalQuiz] = useState([])
+  console.log(finalQuiz)
+  const [currentquestion, setcurrentquestion] = useState(0)
+
+  let navigator = useNavigate()
+  const { user, setuser } = useContext(logincontext)
 
   // console.log(finalQuiz)
 
@@ -24,6 +31,14 @@ export default function ViewQuiz() {
     })
   }, [])
 
+  useEffect(() => {
+    if (user === "") {
+      setTimeout(() => {
+        navigator("/Login")
+      }, 2000)
+    }
+  }, [user])
+
   return (
     <>
       <Header />
@@ -35,15 +50,37 @@ export default function ViewQuiz() {
                   return (
                     <>
                       <QuestionItems question={v} index={i} />
+                      <div className="mb-[10px]">
+                        {currentquestion > 0 ? (
+                          <button
+                            onClick={() =>
+                              setcurrentquestion(currentquestion - 1)
+                            }
+                            className="capitalize bg-[green] text-black px-[30px] rounded-[3px] py-[3px] mr-[10px]"
+                          >
+                            pre
+                          </button>
+                        ) : (
+                          ""
+                        )}
+
+                        {currentquestion < finalQuiz.length - 1 ? (
+                          <button
+                            onClick={() =>
+                              setcurrentquestion(currentquestion + 1)
+                            }
+                            className="capitalize bg-[green] text-black px-[30px] rounded-[3px] py-[3px]"
+                          >
+                            next
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                      </div>
                     </>
                   )
                 })
               : "no question"}
-          </div>
-          <div className="mb-[10px]">
-            <button className="capitalize bg-[green] text-black px-[30px] rounded-[3px] py-[3px]">
-              next
-            </button>
           </div>
         </div>
       </div>
@@ -53,6 +90,9 @@ export default function ViewQuiz() {
 
 function QuestionItems({ question, index }) {
   const [curans, setcurans] = useState("")
+
+  // next previous logic
+
   console.log(question)
 
   let correctionAns = question.Currentanswer
@@ -213,6 +253,26 @@ function QuestionItems({ question, index }) {
           ""
         )}
       </div>
+      {/* <div className="mb-[10px]">
+        {currentquestion > 0 ? (
+          <button className="capitalize bg-[green] text-black px-[30px] rounded-[3px] py-[3px] mr-[10px]">
+            pre
+          </button>
+        ) : (
+          ""
+        )}
+
+        {currentquestion < index.length ? (
+          <button
+            onClick={() => setcurrentquestion(currentquestion + 1)}
+            className="capitalize bg-[green] text-black px-[30px] rounded-[3px] py-[3px]"
+          >
+            next
+          </button>
+        ) : (
+          ""
+        )}
+      </div> */}
     </>
   )
 }

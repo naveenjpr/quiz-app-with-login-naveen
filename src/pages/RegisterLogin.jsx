@@ -74,7 +74,7 @@ export default function RegisterLogin() {
             </button>
           </form>
         </div>
-        <ToastContainer position="top-center" autoClose={500} />
+        <ToastContainer position="top-center" autoClose={2000} />
       </div>
     </>
   )
