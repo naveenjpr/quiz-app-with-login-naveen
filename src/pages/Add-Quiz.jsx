@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Header from "../Common/Header"
 import { getDatabase, ref, set } from "firebase/database"
 import { app } from "../FirebaseConfig"
@@ -19,8 +19,9 @@ export default function AddQuiz() {
     }
     console.log(obj)
     set(ref(db, "quiz/" + "quizId" + new Date().getTime()), obj)
-    event.target.reset();
+    event.target.reset()
   }
+
   return (
     <>
       <Header />
@@ -28,6 +29,7 @@ export default function AddQuiz() {
         <div className="max-w-[500px] grid grid-cols-1 mx-auto shadow-[rgba(0,0,15,0.5)_0px_0px_4px_2px] my-[20px] px-[20px]">
           <h5 className="text-center">Add Quiz</h5>
           <form className="grid gri-cols-1" onSubmit={saveQuiz}>
+          
             <div className="w-[100%]">
               <select
                 className="border-[2px]  border-[solid] border-[#ccc] my-[10px] w-[100%] rounded-[3px]"

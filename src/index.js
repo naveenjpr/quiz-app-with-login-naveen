@@ -23,7 +23,7 @@ import MainContext from "./Context/MainContext"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <ViewQuiz/>,
   },
   {
     path: "/AddQuiz",

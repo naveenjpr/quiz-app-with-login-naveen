@@ -38,13 +38,13 @@ export default function Header() {
                 <li className="pr-[15px]">
                   <img src={logo} alt="" className="w-[50px] h-[50px]" />
                 </li>
-                <li
+                {/* <li
                   className={`pr-[15px] hover:text-[green] ${
                     path == "/" ? "bg-[blue] text-[white]" : ""
                   }`}
                 >
                   <Link to={"/"}>Home</Link>{" "}
-                </li>
+                </li> */}
                 <li
                   className={`pr-[15px] hover:text-[green] ${
                     path == "/AddQuiz" ? "bg-[blue] text-[white]" : ""
